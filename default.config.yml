@@ -1,0 +1,14 @@
+---
+configure_dotfiles: false
+
+configure_sudoers: true
+sudoers_custom_config: |
+  # Allow users in adm group to use sudo with no password.
+  %adm ALL=(ALL) NOPASSWD: ALL
+
+configure_battery_levels: true
+battery_percentage_low: 30
+battery_percentage_critical: 10
+battery_percentage_action: 5
+# Possible values are: PowerOff, Hibernate, HybridSleep
+battery_critical_power_action: HybridSleep

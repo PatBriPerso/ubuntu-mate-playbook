@@ -1,0 +1,23 @@
+---
+# UsePercentageForPolicy=true
+
+# PercentageLow=10
+# PercentageCritical=3
+# PercentageAction=2
+
+# CriticalPowerAction=HybridSleep
+
+# /etc/UPower/UPower.conf
+
+- name: Ensure SELinux is set to enforcing mode
+  become: true
+  ansible.builtin.lineinfile:
+    path: /etc/UPower/UPower.conf
+    regexp: '^{{ item.key }}='
+    line: "{{ item.key }}={{ item.value }}"
+  loop:
+    - { key: 'UsePercentageForPolicy', value: 'true' }
+    - { key: 'PercentageLow', value: "{{ battery_percentage_low }}" }
+    - { key: 'PercentageCritical', value: "{{ battery_percentage_critical }}" }
+    - { key: 'PercentageAction', value: "{{ battery_percentage_action }}" }
+    - { key: 'CriticalPowerAction', value: "{{ battery_critical_power_action }}" }
